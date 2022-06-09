@@ -1,55 +1,9 @@
 import spacy
-# from programa.preprocesamiento.preprocesamiento_limpieza import limpieza_hagstag, limpieza_emojis, limpieza_menciones, limpieza_enlaces
+from programa.preprocesamiento.preprocesamiento_limpieza import limpieza_hagstag, limpieza_emojis, limpieza_menciones, limpieza_enlaces
 import re
 
 nlp = spacy.load("es_core_news_lg")
-
-tweet = """Muere Verónica Forqué: ha sido hallada sin vida en su casa de Madrid
- https://t.co/DEKtYH6sca vía @diarioas
-
-QEPD
-
-La depresión mata
-
-"La actriz, que hace tan solo unos días cumplió 66 años, había participado recientemente
- en 'MasterChef Celebrity' y se tuvo que retirar agotada"""
-
-
-def limpieza_emojis(tweet):
-    regex_emojis = r'([\U00010000-\U0010ffff]|\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])'
-    patron_espacios =r"\s{2,}"
-    tweet = re.sub(regex_emojis, '', tweet)
-    tweet = re.sub(patron_espacios, ' ', tweet)
-
-    return tweet
-
-def limpieza_hagstag(tweet):
-    patron_hagstag = r"\B#\w*[a-zA-Z]+\w*"
-    patron_espacios =r"\s{2,}"
-    tweet = re.sub(patron_hagstag, '', tweet)
-    tweet = re.sub(patron_espacios, ' ', tweet)
-
-    return tweet
-
-def limpieza_enlaces (tweet):
-    patron_webs = r"(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?\S"
-    patron_espacios =r"\s{2,}"
-    #Aquí se eliminan los hagstags y los enlaces
-    tweet = re.sub(patron_webs, '', tweet)
-    tweet = re.sub(patron_espacios, ' ', tweet)
-
-    return tweet
-
-def limpieza_menciones (tweet):
-    patron_menciones = r"@\s?\S+"
-    patron_espacios =r"\s{2,}"
-    #Aquí se eliminan los hagstags y los enlaces
-    tweet = re.sub(patron_menciones, '', tweet)
-    tweet = re.sub(patron_espacios, ' ', tweet)
-
-    return tweet
-
-    
+   
 
 def info_nombres(tweet):
     tweet_sin_procesar = limpieza_emojis(tweet)
@@ -124,7 +78,3 @@ def info_nombres(tweet):
     diccionario_respuesta["Numero_no_detectado"] = numero_no_detectado
 
     return diccionario_respuesta
-
-
-
-info_nombres(tweet)

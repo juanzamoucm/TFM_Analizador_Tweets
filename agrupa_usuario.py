@@ -4,13 +4,12 @@ archivo_csv = "tweets_analizados/analisis_finalizado.csv"
 
 def agrupar_por_usuario(archivo_csv):
     df = pd.read_csv(archivo_csv)
-    # print(df.head())
-    df = df.sort_values(["userid"])
-    tweets_usuario = df.groupby(by = (["userid"])).agg({
+    print(df.head())
+    tweets_usuario = df.groupby(by = (["userid","screen_name"])).agg({
         "Numero_pasados":"mean",
         "Numero_presentes":"mean",
         "Numero_futuros":"mean",
-        # "Numero_condcicionales":"mean",
+        "Numero_condicionales":"mean",
         "Numero_Infinitivos":"mean",
         "Numero_Gerundios":"mean",
         "Verbos_indicativo":"mean",
@@ -69,25 +68,10 @@ def agrupar_por_usuario(archivo_csv):
         "Media_palabras_por_sintagma":"mean",
         "Numero_sintagmas":"mean"
     })
-    tweets_usuario.to_csv('tprueba_1.csv')
-    # print(tweets_usuario.head())
-    # df_final = pd.DataFrame()
-    # for i in tweets_usuario:
-    #     hacer_media(i)
-    # hacer_media(tweets_usuario.first())
-    # tweets_usuario.first().to_csv('tprueba_1.csv')
-    # for i in  tweets_usuario.iloc[:, 6:]:
-    #     print(i)
-    # lista_usuarios = columna.values
-    # print(lista_usuarios)
 
+    tweets_usuario = tweets_usuario.round(2)
 
-
-
-# def hacer_media(df):
-#     media_Numero_pasados = sum(df["Numero_pasados"])/len(df["Numero_pasados"])
-#     nueva_fila = {'userid':,'Numero_pasados':media_Numero_pasados, 'Numero_presentes', 'Numero_futuros', 'Numero_Infinitivos', 'Numero_Gerundios', 'Verbos_indicativo', 'Verbos_subjuntivo', 'Numero_determinantes', 'Determinantes_masc', 'Determinantes_fem', 'Determinantes_sing', 'Determinantes_plu', 'Determinantes_articulos', 'Determinantes_numerales', 'Determinantes_exclamativos', 'Determinantes_indefinidos', 'Determinantes_demostrativos', 'Determinantes_posesivos', 'Numero_nombres_propios', 'Numero_nombres_comunes', 'Numero_nombres', 'Nombres_singular', 'Nombres_plural', 'Nombres_masculino', 'Nombres_femenino', 'Genero_no_detectado', 'Numero_no_detectado', 'Numero_preposiciones', 'Numero_pronombres', 'Pronombres_masc', 'Pronombres_fem', 'Pronombres_sing', 'Pronombres_plu', 'Pronombres_personales', 'Pronombres_relativos', 'Pronombres_indefinidos', 'Pronombres_demostrativos', 'Pronombres_interrogativos', 'Pronombres_numerales', 'Pronombres_posesivos', 'Analisis_sentimiento', 'Numero_emojis', 'Numero_hagstags', 'Numero_webs', 'Longitud_media_palabras', 'Moda_palabras_tweet', 'Mediana_palabras_tweet', 'Numero_errores', 'Numero_tipos_de_error', 'Numero_tildes', 'Numero_signos_puntuacion','Numero_adjetivos','Adjetivos_masc','Adjetivos_fem', 'Adjetivos_sing','Adjetivos_plu','Adjetivos_comparativos','Adjetivos_numerales','Adjetivos_calificativos','Media_palabras_por_sintagma','Numero_sintagmas'}
-#     return media_Numero_pasados
+    tweets_usuario.to_csv('tweets_testing_por_usuario.csv')
 
 
 agrupar_por_usuario(archivo_csv)
