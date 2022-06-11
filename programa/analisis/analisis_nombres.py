@@ -1,6 +1,5 @@
 import spacy
 from programa.preprocesamiento.preprocesamiento_limpieza import limpieza_hagstag, limpieza_emojis, limpieza_menciones, limpieza_enlaces
-import re
 
 nlp = spacy.load("es_core_news_lg")
    
