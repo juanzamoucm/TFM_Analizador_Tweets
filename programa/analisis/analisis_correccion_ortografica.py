@@ -2,7 +2,6 @@ import language_tool_python
 from programa.preprocesamiento.preprocesamiento_limpieza import limpieza_hagstag, limpieza_emojis, limpieza_menciones, limpieza_enlaces
 
 tool = language_tool_python.LanguageToolPublicAPI('es')
-# tweet = "hola valentine está muy pesado"
 
 def palabras_correctas_e_incorrectas(tweet):
     diccionario_respuesta = {"Numero_errores":"", "Numero_tipos_de_error":""}
