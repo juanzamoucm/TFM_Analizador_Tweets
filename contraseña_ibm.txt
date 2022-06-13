@@ -1,6 +1,0 @@
-Pepetijuelas28
-
-clave_API: 
-TRHK4YCvLZM-WUKWAUbzXaFLtSONGlw-NdiRWlMI0vCy
-URL:
-https://api.eu-gb.tone-analyzer.watson.cloud.ibm.com/instances/52b21d6a-b153-4d7e-a8f9-1c89febd7d13
