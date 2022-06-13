@@ -71,7 +71,7 @@ def agrupar_por_usuario(archivo_csv):
 
     tweets_usuario = tweets_usuario.round(2)
 
-    tweets_usuario.to_csv('tweets_testing_por_usuario.csv')
+    tweets_usuario.to_csv('tweets_por_usuario.csv')
 
 
 agrupar_por_usuario(archivo_csv)
