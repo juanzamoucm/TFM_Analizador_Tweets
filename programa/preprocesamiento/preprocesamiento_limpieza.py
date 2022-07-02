@@ -20,7 +20,6 @@ def limpieza_excepto_tildes (tweet):
     patron_webs = r"(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?\S"
     patron_espacios =r"\s{2,}"
     tweet = re.sub(patron_espacios, ' ', tweet)
-    #Aquí se eliminan los hagstags y los enlaces
     tweet = re.sub(patron_hagstag, '', tweet)
     tweet = re.sub(patron_webs, '', tweet)
     tweet = re.sub(patron_espacios, ' ', tweet)
@@ -30,7 +29,6 @@ def limpieza_excepto_tildes (tweet):
 def limpieza_signos_puntuacion (tweet):
     patron_caracteres_a_eliminar = r"([.,\\/#!$%\\^&\\*;:{}=\\-_`~()])"
     patron_espacios =r"\s{2,}"
-    #Aquí se eliminan los hagstags y los enlaces
     tweet = re.sub(patron_caracteres_a_eliminar, ' ', tweet)
     tweet = re.sub(patron_espacios, ' ', tweet)
 
@@ -55,7 +53,6 @@ def limpieza_hagstag(tweet):
 def limpieza_enlaces (tweet):
     patron_webs = r"(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?\S"
     patron_espacios =r"\s{2,}"
-    #Aquí se eliminan los hagstags y los enlaces
     tweet = re.sub(patron_webs, '', tweet)
     tweet = re.sub(patron_espacios, ' ', tweet)
 
@@ -64,7 +61,6 @@ def limpieza_enlaces (tweet):
 def limpieza_menciones (tweet):
     patron_menciones = r"@\s?\S+"
     patron_espacios =r"\s{2,}"
-    #Aquí se eliminan los hagstags y los enlaces
     tweet = re.sub(patron_menciones, '', tweet)
     tweet = re.sub(patron_espacios, ' ', tweet)
 
