@@ -101,21 +101,32 @@ def info_pron(tweet):
         try:
             if token.pos_ == "VERB":
                 verbo = token.text
-                stemmer_artificial = r'(a|á|e|é|i|í)r\S+|(a|á|e|é|i|í)d\S+|nd\S+'
-                objeto_busqueda = re.search(stemmer_artificial, verbo)
-                fin_verbo = objeto_busqueda.group()
-                if fin_verbo != None:
-                    for i in lista_posibles_encliticos:
-                        if i in fin_verbo:
-                            if verbo.endswith("mos"):
-                                pass
-                            else:
+                for i in lista_posibles_encliticos:
+                    if verbo.endswith(i) and not verbo.endswith("mos"):
+                        pron_pers+=1
+                        numero_prons+=1
+                        verbo = re.sub(i,"",verbo)
+                        for i in lista_posibles_encliticos:
+                            if verbo.endswith(i):
                                 pron_pers+=1
                                 numero_prons+=1
-                    else:
-                        pass
+                # stemmer_artificial = r'(a|á|e|é|i|í)r\S+|(a|á|e|é|i|í)d\S+|nd\S+'
+                # objeto_busqueda = re.search(stemmer_artificial, verbo)
+                # fin_verbo = objeto_busqueda.group()
+                # if fin_verbo != None:
+                #     for i in lista_posibles_encliticos:
+                #         if i in fin_verbo:
+                #             if verbo.endswith("mos"):
+                #                 pass
+                #             else:
+                #                 pron_pers+=1
+                #                 numero_prons+=1
+                #     else:
+                #         pass
         except:
             pass
+
+        
 
     diccionario_respuesta["Numero_pronombres"] = numero_prons
     diccionario_respuesta["Pronombres_masc"] = pron_masc

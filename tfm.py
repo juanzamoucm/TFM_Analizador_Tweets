@@ -38,7 +38,6 @@ def ejecutar_programa(path):
                 pass
     
     lista_tweets.pop(0)
-    # lista_tweets = lista_tweets[96]
 
     with open("tweets_analizados/analisis_finalizado.csv",'w', newline='') as documento:
         tweets_analizados = 0
@@ -73,7 +72,7 @@ def ejecutar_programa(path):
         tiempo_analisis_total = fin_analisis_total - tiempo_analisis_inicio
         print(f"Todos los tweets han sido analizados en {tiempo_analisis_total}.")
         df_con_analisis.to_csv("tweets_analizados/analisis_finalizado.csv")
-        # print(df_con_analisis.head())
+        print("El resultado de tu análisis está en la carpeta tweets_analizados en un archivo llamado analisis_finalizado.csv")
 
 def ejecutar_analisis(tweet):
     diccionario_analisis = {}
