@@ -1,6 +1,6 @@
 import pandas as pd
 
-archivo_csv = "usuario_con_renta_y_sentimiento.csv"
+archivo_csv = "FIN_GroupedUsuarios.csv"
 
 def agrupar_por_usuario(archivo_csv):
     df = pd.read_csv(archivo_csv)
@@ -100,3 +100,23 @@ def Unir_DF(df_1,df_2,columna_union,nombre_nuevo):
 def extraer_columna(df, columna):
     columna = df.loc[:,[columna]]
     return columna
+
+def dividir_por_renta(archivo_csv):
+    df = pd.read_csv(archivo_csv)
+    df_rentas_altas = df[df["Renta_zona_usuario"] > 17377.69]
+    df_rentas_bajas = df[df["Renta_zona_usuario"] < 17377.69]
+    df_rentas_altas = df_rentas_altas.set_index(["userid"])
+    df_rentas_bajas = df_rentas_bajas.set_index(["userid"])
+    df_rentas_altas.to_csv("rentas_altas.csv")
+    df_rentas_bajas.to_csv("rentas_bajas.csv")
+
+
+dividir_por_renta(archivo_csv)
+
+def calcular_media(archivo_csv, columna):
+    df = pd.read_csv(archivo_csv)
+    media_columna = df[columna].mean()
+
+    return media_columna
+
+# calcular_media(archivo_csv, "Renta_zona_usuario")

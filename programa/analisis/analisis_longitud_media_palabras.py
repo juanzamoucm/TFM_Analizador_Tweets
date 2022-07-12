@@ -1,5 +1,5 @@
 from statistics import mean, median, mode
-from programa.preprocesamiento.preprocesamiento_limpieza import limpieza, limpieza_emojis
+from programa.preprocesamiento.preprocesamiento_limpieza import limpieza_emojis
 
 
 
