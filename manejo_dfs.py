@@ -111,7 +111,7 @@ def dividir_por_renta(archivo_csv):
     df_rentas_bajas.to_csv("rentas_bajas.csv")
 
 
-dividir_por_renta(archivo_csv)
+# dividir_por_renta(archivo_csv)
 
 def calcular_media(archivo_csv, columna):
     df = pd.read_csv(archivo_csv)
@@ -119,4 +119,23 @@ def calcular_media(archivo_csv, columna):
 
     return media_columna
 
-# calcular_media(archivo_csv, "Renta_zona_usuario")
+#  Comparacion dataframes
+def comparar_dfs(archivo_csv_1, archivo_csv_2):
+    df_cabecera = pd.read_csv(archivo_csv_1)
+    cabecera_sucia = df_cabecera.columns.values.tolist()
+    cabecera = [i for i in cabecera_sucia if i != "userid" and i != "screen_name"]
+    df_comparador = pd.DataFrame(columns=cabecera)
+    diccionario_df1 = {"tipo_renta":"rentas_altas"}
+    for i in cabecera:
+        media = round(calcular_media(archivo_csv_1,i),2) 
+        diccionario_df1[i] = media
+    diccionario_df2 = {"tipo_renta":"rentas_bajas"}
+    for i in cabecera:
+        media = round(calcular_media(archivo_csv_2,i),2) 
+        diccionario_df2[i] = media
+    df_comparador = df_comparador.append(diccionario_df1, ignore_index=True)
+    df_comparador = df_comparador.append(diccionario_df2, ignore_index=True)
+    df_comparador.to_csv("medias_parametros.csv")
+
+
+comparar_dfs("rentas_altas.csv", "rentas_bajas.csv")
