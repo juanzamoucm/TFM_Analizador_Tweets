@@ -1,10 +1,10 @@
 import pandas as pd
 
-archivo_csv = "FIN_GroupedUsuarios.csv"
+archivo_csv = "tweets_analizados/97000_analizados.csv"
 
 def agrupar_por_usuario(archivo_csv):
     df = pd.read_csv(archivo_csv)
-    print(df.head())
+    # print(df.head())
     tweets_usuario = df.groupby(by = (["userid","screen_name"])).agg({
         "Numero_pasados":"mean",
         "Numero_presentes":"mean",
@@ -65,17 +65,20 @@ def agrupar_por_usuario(archivo_csv):
         "Adjetivos_comparativos":"mean",
         "Adjetivos_numerales":"mean",
         "Adjetivos_calificativos":"mean",
-        "Media_palabras_por_sintagma":"mean",
-        "Numero_sintagmas":"mean"
+        "Media_palabras_por_constituyente":"mean",
+        "Numero_constituyentes":"mean"
     })
 
     tweets_usuario = tweets_usuario.round(2)
 
     tweets_usuario.to_csv('tweets_por_usuario.csv')
 
+# agrupar_por_usuario(archivo_csv)
+
+# aquí se mete el csv que solamente tiene los datos del sentimiento y la renta para después unirlo al df general. Está en corpus/FullUsuarios_renta_y_sentimiento.csv
 def agrupar_por_usuario_dos(archivo_csv):
     df = pd.read_csv(archivo_csv)
-    print(df.head())
+    # print(df.head())
     tweets_usuario = df.groupby(by = (["userid"])).agg({
         "Renta_zona_usuario":"mean",
         "sentiment":"mean"
@@ -86,8 +89,9 @@ def agrupar_por_usuario_dos(archivo_csv):
     tweets_usuario.to_csv('renta_y_sentimiento_por_usuario.csv')
 
 
-# agrupar_por_usuario_dos(archivo_csv)
+# agrupar_por_usuario_dos("corpus/FullUsuarios_renta_y_sentimiento.csv")
 
+# Unir dos df a partir de una columna X. Aquí se utiliza para unir el df con rentas y sentiment analysis al df con el análisis nuestro
 def Unir_DF(df_1,df_2,columna_union,nombre_nuevo):
     df_primero = pd.read_csv(df_1)
     df_segundo = pd.read_csv(df_2)
@@ -97,29 +101,32 @@ def Unir_DF(df_1,df_2,columna_union,nombre_nuevo):
 
     return df_final
 
+# Unir_DF("tweets_por_usuario.csv","renta_y_sentimiento_por_usuario.csv","userid","reprobando_codigo")
+
+# Devolver una columna
 def extraer_columna(df, columna):
     columna = df.loc[:,[columna]]
     return columna
 
-def dividir_por_renta(archivo_csv):
-    df = pd.read_csv(archivo_csv)
-    df_rentas_altas = df[df["Renta_zona_usuario"] > 17377.69]
-    df_rentas_bajas = df[df["Renta_zona_usuario"] < 17377.69]
-    df_rentas_altas = df_rentas_altas.set_index(["userid"])
-    df_rentas_bajas = df_rentas_bajas.set_index(["userid"])
-    df_rentas_altas.to_csv("rentas_altas.csv")
-    df_rentas_bajas.to_csv("rentas_bajas.csv")
-
-
-# dividir_por_renta(archivo_csv)
-
+# Calcular la media de una columna dada
 def calcular_media(archivo_csv, columna):
     df = pd.read_csv(archivo_csv)
     media_columna = df[columna].mean()
 
     return media_columna
 
-#  Comparacion dataframes
+# Dividir a usuarios por renta. Se divide el df en 3 cuantiles: el tercio con renta mas baja, el tercio con renta media y el tercio con renta alta. después se generan dos csv uno con renta baja y otro con renta alta
+def division_cuantiles(archivo_csv):
+    df = pd.read_csv(archivo_csv)
+    bajo = df.Renta_zona_usuario.quantile(1/3)#tercio inferior o renta baja
+    alto = df.Renta_zona_usuario.quantile(2/3)#tercio superior o renta alta
+
+    renta_alta = df[ df.Renta_zona_usuario > alto ]
+    renta_baja = df[ df.Renta_zona_usuario < bajo ]
+    renta_alta.to_csv("renta_alta.csv")
+    renta_baja.to_csv("renta_baja.csv")
+
+#  Comparacion dataframes. Se reciben dos dfs y se crea un nuevo csv con dos filas. Las filas contienen la media de cada parametro, cada fila mostrará los datos de un tipo de renta. 
 def comparar_dfs(archivo_csv_1, archivo_csv_2):
     df_cabecera = pd.read_csv(archivo_csv_1)
     cabecera_sucia = df_cabecera.columns.values.tolist()
@@ -135,7 +142,4 @@ def comparar_dfs(archivo_csv_1, archivo_csv_2):
         diccionario_df2[i] = media
     df_comparador = df_comparador.append(diccionario_df1, ignore_index=True)
     df_comparador = df_comparador.append(diccionario_df2, ignore_index=True)
-    df_comparador.to_csv("medias_parametros.csv")
-
-
-comparar_dfs("rentas_altas.csv", "rentas_bajas.csv")
+    df_comparador.to_csv("medias_parametros_prueba.csv")
