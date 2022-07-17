@@ -1,6 +1,6 @@
 import pandas as pd
 
-archivo_csv = "tweets_analizados/97000_analizados.csv"
+archivo_csv = "tweets_testing.csv"
 
 def agrupar_por_usuario(archivo_csv):
     df = pd.read_csv(archivo_csv)
@@ -143,3 +143,12 @@ def comparar_dfs(archivo_csv_1, archivo_csv_2):
     df_comparador = df_comparador.append(diccionario_df1, ignore_index=True)
     df_comparador = df_comparador.append(diccionario_df2, ignore_index=True)
     df_comparador.to_csv("medias_parametros_prueba.csv")
+
+# Esta función limpia el análisis de los tweets de testing para repetirlo
+def crear_nuev_df_desde_columnas(archivo_csv):
+    df = pd.read_csv(archivo_csv)
+    df_nuevo = df.iloc[:,[0,1,2,3,4]]
+    df_nuevo = df_nuevo.set_index("id_tweet")
+    df_nuevo.to_csv("tweets_testing_limpio.csv")
+
+# crear_nuev_df_desde_columnas(archivo_csv)
