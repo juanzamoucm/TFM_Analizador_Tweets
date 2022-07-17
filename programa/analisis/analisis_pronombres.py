@@ -1,14 +1,16 @@
 import spacy
-from programa.preprocesamiento.preprocesamiento_limpieza import limpieza_hagstag, limpieza_emojis, limpieza_menciones, limpieza_enlaces
+# from programa.preprocesamiento.preprocesamiento_limpieza import limpieza_hagstag, limpieza_emojis, limpieza_menciones, limpieza_enlaces
 import re
 
 nlp = spacy.load("es_core_news_lg")
 
+tweet = "Nos dicen que vayamos a verlos que nos han echado de menos"
+
 def info_pron(tweet):
-    tweet_sin_procesar = limpieza_emojis(tweet)
-    tweet_sin_procesar = limpieza_menciones(tweet_sin_procesar)
-    tweet_sin_procesar = limpieza_hagstag(tweet_sin_procesar)
-    tweet = limpieza_enlaces(tweet_sin_procesar)
+    # tweet_sin_procesar = limpieza_emojis(tweet)
+    # tweet_sin_procesar = limpieza_menciones(tweet_sin_procesar)
+    # tweet_sin_procesar = limpieza_hagstag(tweet_sin_procesar)
+    # tweet = limpieza_enlaces(tweet_sin_procesar)
     tweet = nlp(tweet)
     diccionario_respuesta = {"Numero_pronombres":"","Pronombres_masc":"","Pronombres_fem":"", "Pronombres_sing":"","Pronombres_plu":"","Pronombres_personales":"","Pronombres_relativos":"","Pronombres_indefinidos":"","Pronombres_demostrativos":"","Pronombres_interrogativos":"","Pronombres_numerales":"","Pronombres_posesivos":""}
 
@@ -56,7 +58,7 @@ def info_pron(tweet):
             try:
                 if token.morph.get("Number")[0] == "Sing":
                     pron_sing+=1
-                if token.morph.get("Number")[0] == "Plu":
+                if token.morph.get("Number")[0] == "Plur":
                     pron_plu+=1
             except:
                 pass
@@ -145,4 +147,4 @@ def info_pron(tweet):
 
 
 
-# info_pron(tweet)
+info_pron(tweet)
