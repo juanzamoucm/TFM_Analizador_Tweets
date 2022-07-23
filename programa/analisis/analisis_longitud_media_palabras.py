@@ -15,11 +15,9 @@ def longitud_media_palabras(tweet):
         lista_longitudes.append(longitud_palabra)
     
     try:
-
         diccionario_respuesta["Longitud_media_palabras"] = mean(lista_longitudes)
         diccionario_respuesta["Moda_palabras_tweet"] = mode(lista_longitudes)
         diccionario_respuesta["Mediana_palabras_tweet"] = median(lista_longitudes)
-
     except:
         diccionario_respuesta["Longitud_media_palabras"] = 0
         diccionario_respuesta["Moda_palabras_tweet"] = 0

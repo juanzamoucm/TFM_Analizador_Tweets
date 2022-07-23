@@ -159,3 +159,17 @@ def crear_nuev_df_desde_columnas(archivo_csv):
     df_nuevo.to_csv("tweets_testing_limpio.csv")
 
 # crear_nuev_df_desde_columnas(archivo_csv)
+
+def aplasta_valores_a_medias(archivo_csv):
+    df_cabecera = pd.read_csv(archivo_csv)
+    cabecera_sucia = df_cabecera.columns.values.tolist()
+    cabecera = [i for i in cabecera_sucia if i != "userid" and i != "screen_name"]
+    df = pd.DataFrame(columns=cabecera)
+    diccionario_df = {}
+    for i in cabecera:
+        media = round(calcular_media(archivo_csv,i),2) 
+        diccionario_df[i] = media
+    df = df.append(diccionario_df, ignore_index=True)
+    df.to_csv(f"{archivo_csv}_medias.csv")
+
+# aplasta_valores_a_medias("renta_baja.csv")
