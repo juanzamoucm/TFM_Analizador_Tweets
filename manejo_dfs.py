@@ -1,6 +1,6 @@
 import pandas as pd
 
-archivo_csv = "tweets_testing.csv"
+archivo_csv = "tweets_analizados/97000_analizados_bueno.csv"
 
 def agrupar_por_usuario(archivo_csv):
     df = pd.read_csv(archivo_csv)
@@ -71,7 +71,7 @@ def agrupar_por_usuario(archivo_csv):
 
     tweets_usuario = tweets_usuario.round(2)
 
-    tweets_usuario.to_csv('tweets_por_usuario.csv')
+    tweets_usuario.to_csv('tweets_por_usuario_bueno.csv')
 
 # agrupar_por_usuario(archivo_csv)
 
@@ -97,11 +97,12 @@ def Unir_DF(df_1,df_2,columna_union,nombre_nuevo):
     df_segundo = pd.read_csv(df_2)
 
     df_final = pd.merge(df_primero, df_segundo, on=columna_union)
+    df_final = df_final.set_index("userid")
     df_final.to_csv(f"{nombre_nuevo}.csv")
 
     return df_final
 
-# Unir_DF("tweets_por_usuario.csv","renta_y_sentimiento_por_usuario.csv","userid","reprobando_codigo")
+# Unir_DF("tweets_por_usuario_bueno.csv","renta_y_sentimiento_por_usuario.csv","userid","csv_analisis_final_bueno")
 
 # Devolver una columna
 def extraer_columna(df, columna):
@@ -122,9 +123,13 @@ def division_cuantiles(archivo_csv):
     alto = df.Renta_zona_usuario.quantile(2/3)#tercio superior o renta alta
 
     renta_alta = df[ df.Renta_zona_usuario > alto ]
+    renta_alta = renta_alta.set_index("userid")
     renta_baja = df[ df.Renta_zona_usuario < bajo ]
+    renta_baja = renta_baja.set_index("userid")
     renta_alta.to_csv("renta_alta.csv")
     renta_baja.to_csv("renta_baja.csv")
+
+# division_cuantiles("csv_analisis_final_bueno.csv")
 
 #  Comparacion dataframes. Se reciben dos dfs y se crea un nuevo csv con dos filas. Las filas contienen la media de cada parametro, cada fila mostrará los datos de un tipo de renta. 
 def comparar_dfs(archivo_csv_1, archivo_csv_2):
@@ -142,7 +147,9 @@ def comparar_dfs(archivo_csv_1, archivo_csv_2):
         diccionario_df2[i] = media
     df_comparador = df_comparador.append(diccionario_df1, ignore_index=True)
     df_comparador = df_comparador.append(diccionario_df2, ignore_index=True)
-    df_comparador.to_csv("medias_parametros_prueba.csv")
+    df_comparador.to_csv("medias_parametros.csv")
+
+# comparar_dfs("renta_alta.csv", "renta_baja.csv")
 
 # Esta función limpia el análisis de los tweets de testing para repetirlo
 def crear_nuev_df_desde_columnas(archivo_csv):
