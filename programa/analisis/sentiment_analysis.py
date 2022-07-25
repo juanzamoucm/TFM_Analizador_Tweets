@@ -4,8 +4,8 @@ from ibm_watson.natural_language_understanding_v1 import (Features, KeywordsOpti
     SentimentOptions,
     ConceptsOptions)
 
-apikey = "1_vgQjpkcqcHvUhX80qxO4sBzpf15L_SvlSSZU56jGs6"
-url = "https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/f78256d0-4d9b-4040-8c38-6ec20fcbe7b9"
+apikey = "write_your_apikey_here"
+url = "write_the_url_here"
 
 def analyze_text(tweet):
     diccionario_respuesta = {"Analisis_sentimiento":""}
