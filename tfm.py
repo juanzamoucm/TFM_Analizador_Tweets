@@ -1,5 +1,4 @@
 import csv
-import encodings
 from programa.analisis.analisis_dependencias_sintacticas import info_sintactica
 from programa.preprocesamiento.preprocesamiento_limpieza import *
 from programa.analisis.analisis_verbal import info_verbal

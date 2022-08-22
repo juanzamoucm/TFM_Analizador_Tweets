@@ -1,6 +1,6 @@
 import pandas as pd
 
-archivo_csv = "tweets_analizados/97000_analizados_bueno.csv"
+archivo_csv = "tweets_analizados/97000_analizados.csv"
 
 def agrupar_por_usuario(archivo_csv):
     df = pd.read_csv(archivo_csv)
