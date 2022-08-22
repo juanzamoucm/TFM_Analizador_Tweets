@@ -107,7 +107,7 @@ def ejecutar_analisis(tweet):
     return diccionario_analisis
 
 def main():
-    path = input("Introduce el path de donde se encuentras los tweets: \n(por defecto se utiliza corpus/1a_muestra_tweets.csv)")
+    path = input("Introduce el path de donde se encuentras los tweets: ")
     ejecutar_programa(path)
 
 if __name__ == "__main__":
